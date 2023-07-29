@@ -124,9 +124,6 @@ class Solution:
 
     def compute_convolution(self):
         convolutionA = []
-        """
-        [TODO] (1a) Do for every time step t_i:
-        """
         for i in range(len(self.data.ti)):
             f = self.f1A[:i+1]
             g = self.f2A[i::-1]
@@ -165,10 +162,10 @@ class Solution:
         """
 
         lo = 0
-        hi = len(cdf_values)-1
-        while hi-lo > 1:
-            mid = (lo+hi)/2
-            if cdf_values[mid]<target:
+        hi = len(cdf_values) - 1
+        while hi - lo > 1:
+            mid = (lo + hi) // 2
+            if cdf_values[mid] < target:
                 lo = mid
             else:
                 hi = mid
@@ -176,7 +173,6 @@ class Solution:
             return hi
         else:
             return lo
-        return
 
 
 
