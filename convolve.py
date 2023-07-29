@@ -51,7 +51,7 @@ Shown: dict =  {timesObs1AX: [9, 20, 10, 25, 14, 22, 10, 18] # Test Uniform
 
 """
 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 class DataInput:
     def __init__(self):
@@ -71,7 +71,7 @@ class DataAnalysis:
         self.convolutionA = self.compute_convolution()
         self.mean1A = self.data.mean1A
         self.mean2A = self.data.mean2A
-        self.timeModelA = self.search_ppf(self.compute_cdf_convolution(), self.data.probModel, epsilon=1e-4)
+        self.timeModelA = self.search_ppf(self.compute_cdf_convolution(), self.data.probModel, epsilon=1e-4,)
 
     def exp(self, x, terms=100):
         """Compute the exponential function
@@ -161,39 +161,16 @@ class DataAnalysis:
         else:
             return lo
 
-class OutputPlotting:
-    def __init__(self, data):
-        self.data = data
-
-    def plot(self):
-        fig, ax1 = plt.subplots()
-        ax2 = ax1.twinx()
-        ax1.step(self.data.data.ti, self.data.f1A,label="Probability Density f1A")
-        ax1.step(self.data.data.ti, self.data.f2A, '--',label="Probability Density f2A")
-        ax1.plot(self.data.data.ti, self.data.convolutionA,'-g',label="Convolution(f1A,f2A)")
-        ax2.plot(self.data.data.ti[1:], self.data.compute_cdf_convolution(),'-.g', label="Convolution A CDF Pr(t'<t)")
-        ax1.set_xlabel("Time: $(s)$")
-        ax1.set_ylabel("Probability Density $(1/s)$")
-        ax2.set_ylabel("Cummulative Distribution Probability(t' < t) ")
-        ax1.set_xlim([0,30])
-        ax1.legend(loc='center right')
-        ax2.legend(loc='lower right')
-        ax1.grid()
-        fig.tight_layout()
-        plt.show()
 
 def main():
     data_input = DataInput()
     data_analysis = DataAnalysis(data_input)
-    print(f"mean1A = {round(data_analysis.mean1A,2)}")
-    print(f"mean2A = {round(data_analysis.mean2A,2)}")
-    print(f"mean1A + mean2A = {round(data_analysis.mean1A + data_analysis.mean2A,2)}")
-    print("The probability that two events will take less than t' < t:")
-    print("PrA(t'< {:2.1f} s) = {:2.2f}".format(data_analysis.timeModelA, data_input.probModel))
-    output_plot = OutputPlotting(data_analysis)
-    output_plot.plot()
+    # print(f"mean1A = {round(data_analysis.mean1A,2)}")
+    # print(f"mean2A = {round(data_analysis.mean2A,2)}")
+    # print(f"mean1A + mean2A = {round(data_analysis.mean1A + data_analysis.mean2A,2)}")
+    # print("The probability that two events will take less than t' < t:")
+    # print("PrA(t'< {:2.1f} s) = {:2.2f}".format(data_analysis.timeModelA, data_input.probModel))
+
 
 if __name__ == "__main__":
     main()
-convolve_CC_Run.py
-Displaying convolve_CC_Run.py.
