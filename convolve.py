@@ -138,7 +138,7 @@ class DataAnalysis:
             g = self.f2A[i::-1]
             Cj = []
             for j in range(len(f)):
-                Cj.append(f[j]*g[j])
+                Cj.append(f[j] * g[j])
             convolutionA.append(self.integrateTrapz(Cj, self.data.ti[:i+1]))
         return convolutionA
 
@@ -148,28 +148,28 @@ class DataAnalysis:
         return [self.integrateTrapz(self.convolutionA[:i], self.data.ti[:i]) for i in self.data.ti[1:]]
 
     def search_ppf(self, cdf_values, target, epsilon=1e-6):
-        lo = 0
-        hi = len(cdf_values) - 1
-        while hi - lo > 1:
-            mid = (lo + hi) // 2
+        low = 0
+        high = len(cdf_values) - 1
+        while high - low > 1:
+            mid = (low + high) // 2
             if cdf_values[mid] < target:
-                lo = mid
+                low = mid
             else:
-                hi = mid
-        if abs(cdf_values[hi] - target) < epsilon:
-            return hi
+                high = mid
+        if abs(cdf_values[high] - target) < epsilon:
+            return high
         else:
-            return lo
+            return low
 
 
 def main():
     data_input = DataInput()
     data_analysis = DataAnalysis(data_input)
-    # print(f"mean1A = {round(data_analysis.mean1A,2)}")
-    # print(f"mean2A = {round(data_analysis.mean2A,2)}")
-    # print(f"mean1A + mean2A = {round(data_analysis.mean1A + data_analysis.mean2A,2)}")
-    # print("The probability that two events will take less than t' < t:")
-    # print("PrA(t'< {:2.1f} s) = {:2.2f}".format(data_analysis.timeModelA, data_input.probModel))
+    print(f"mean1A = {round(data_analysis.mean1A,2)}")
+    print(f"mean2A = {round(data_analysis.mean2A,2)}")
+    print(f"mean1A + mean2A = {round(data_analysis.mean1A + data_analysis.mean2A,2)}")
+    print("The probability that two events will take less than t' < t:")
+    print("PrA(t'< {:2.1f} s) = {:2.2f}".format(data_analysis.timeModelA, data_input.probModel))
 
 
 if __name__ == "__main__":
